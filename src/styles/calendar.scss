@@ -1,0 +1,66 @@
+$cellSize: 100px;
+$cellGap: 1px;
+
+$cellBgColor: #eee;
+$bgColorHovered: pink;
+
+$daysOfWeek: (
+  "mon" 0,
+  "tue" 1,
+  "wed" 2,
+  "thu" 3,
+  "fri" 4,
+  "sat" 5,
+  "sun" 6
+);
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: ($cellSize + $cellGap) * 7;
+  font-size: 30px;
+
+  & div {
+    width: $cellSize;
+    height: $cellSize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $cellBgColor;
+    margin-right: $cellGap;
+    margin-bottom: $cellGap;
+    border: 1px solid black;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $bgColorHovered;
+      position: relative;
+      bottom: 20px;
+      transition: 0.5s;
+    }
+  }
+}
+
+@for $i from 1 through 31 {
+  .calendar div:nth-child(#{$i})::before {
+    content: "#{$i}"
+  }
+}
+
+@for $i from 28 through 30 {
+  .calendar-#{$i} div:nth-child(n + #{$i+1}) {
+    display: none;
+  }
+}
+
+@each $day, $value in $daysOfWeek {
+  .calendar-#{$day} div:first-child {
+    margin-left: $value * ($cellSize + $cellGap);
+  }
+}
