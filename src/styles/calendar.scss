@@ -40,8 +40,7 @@ body {
 
     &:hover {
       background-color: $bgColorHovered;
-      position: relative;
-      bottom: 20px;
+      transform: translate(0, -20px);
       transition: 0.5s;
     }
   }
